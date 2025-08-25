@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Hotels";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3 class="page-header">Hotels</h3>
+
+<table id="hotels" class=" table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Stars</th>
+            <th>Price</th>
+            <th>AllInclusive</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#hotels").DataTable(
+                {
+                    ajax:
+                    {
+                        url: "/api/hotels",
+                        dataSrc: ""
+                    },
+                    columns:
+                    [
+                        {
+                            data: "Name",
+                        },
+                        {
+                            data: "Country.Name",
+                        },
+                        {
+                            data: "City",
+                        },
+                        {
+                            data: "Stars",
+                        },
+                        {
+                            data: "PricePerNight",
+                        },
+                        {
+                            data: "IsAllInclusive",
+                            render: function (data, type, row) {
+                                return (data == true) ? "Yes" : "No";
+                            }
+
+                        }
+                    ]
+                });
+        });
+    </script>
+}
